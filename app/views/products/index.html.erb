@@ -1,1 +1,29 @@
+<% @products.each do |product| %>
+    <div data-id="<%= product.id %>">
+      <p><%= product.id %> - <%= product.name %> - $<%= product.price %> </p>
+      <p class="description"></p>
+      <button name="More Info" class="btn" data-id='<%= product.id %>'>More Info</button>
+    </div>
+  <% end %>
 
+<script type="text/javascript">
+    let buttons = document.querySelectorAll('.btn')
+    buttons.forEach(button => {
+      button.addEventListener('click', event => {
+        let id = event.target.dataset.id
+        let description = event.target.parentNode.querySelector('.description')
+        $.get('/products/'+id+'/description', data => {
+          console.log(data)
+          description.innerText = data
+        })
+        $.get(`/products/${id}/inventory`, data => {
+          console.log(data)
+          if(data === "true") {
+            $(description).append(`<br>Available`)
+          } else {
+            $(description).append('<br>Sold Out')
+          }
+        })
+      })
+    })
+  </script>
