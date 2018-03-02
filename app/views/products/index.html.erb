@@ -1,1 +1,9 @@
-
+<h3>Products</h3>
+<ol>
+<% @products.each do |p| %>
+  <li id="product-<%= p.id %>"><strong><%= p.name %></strong>
+    <br>
+    <%= truncate(p.description) %>
+  </li>
+<% end %>
+<ol>
