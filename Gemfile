@@ -41,6 +41,8 @@ group :development, :test do
   gem 'faker'
   gem 'shoulda'
   gem 'poltergeist', '~> 1.14.0'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do
