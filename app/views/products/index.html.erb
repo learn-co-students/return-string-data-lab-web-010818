@@ -4,6 +4,44 @@
   <li id="product-<%= p.id %>"><strong><%= p.name %></strong>
     <br>
     <%= truncate(p.description) %>
+    <br>
+    <button class="js-more" data-id="<%= p.id %>">More Info</button>
   </li>
 <% end %>
 <ol>
+
+<script type="text/javascript" charset="utf-8">
+  const productsContainer = document.getElementsByTagName('ol')[0]
+  productsContainer.addEventListener('click', (e) => {
+    if (e.target.className === 'js-more') {
+      const productId = parseInt(e.target.dataset.id)
+      // inventory
+      fetch(`http://localhost:3000/products/${productId}/inventory`)
+      .then(res => res.text())
+      .then(inventory => render(productId, inventory))
+      // description
+      fetch(`http://localhost:3000/products/${productId}/description`)
+      .then(res => res.text())
+      .then(description => render(productId, description))
+
+      function render(id, info) {
+        const productDiv = document.getElementById(`product-${id}`)
+        if (info === 'true') {
+          productDiv.innerHTML += '<strong>Available</strong>: '
+        } else if (info === 'false') {
+          productDiv.innerHTML += '<strong>Sold Out</strong>'
+        } else {
+          productDiv.innerHTML += info  //description
+        }
+      }
+
+
+    }
+  })
+
+
+
+
+
+
+</script
