@@ -26,6 +26,7 @@ RSpec.describe ProductsController, type: :controller do
       expect(response.body).to eq "false"
     end
   end
+  
 
   describe "GET description" do
     it 'returns the description as a plain string' do
